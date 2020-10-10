@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Note } from './components/Note';
 import axios from 'axios';
+import noteService from './service/notes'
 
 function App() {
 
   const [notes, setNotes] = useState([]);
-
   const [newNote, setNewNote] = useState('write a new note...');
   const [showAll, setShowAll] = useState(true);
 
@@ -17,7 +17,7 @@ function App() {
     const note = notes.find(n => n.id === id);
     const changeNote = { ...note, important: !note.important };
 
-    axios.put(url, changeNote).then(res => {
+    noteService.update(id, changeNote).then(res => {
       setNotes(notes.map(note => note.id !== id ? note : res.data))
     })
   }
@@ -30,7 +30,7 @@ function App() {
       important: Math.random() < 0.5,
     }
 
-    axios.post('http://localhost:3001/notes', newObj).then(res => {
+    noteService.create(newObj).then(res => {
       setNotes(notes.concat(res));
       setNewNote('');
     })
@@ -40,10 +40,12 @@ function App() {
     setNewNote(e.target.value);
   }
 
+
+
   const noteToShow = showAll ? notes : notes.filter(note => note.important === true)
 
   useEffect(() => {
-    axios.get('http://localhost:3001/notes').then(res => {
+    noteService.getAll().then(res => {
       console.log('promise fulfilled')
       setNotes(res.data)
     })

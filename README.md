@@ -10,6 +10,8 @@ server: localhost:3001/notes
 
 update each item important or not ,also update into database
 
+need install CORS to connect server.
+
 post and get data from DB
 
 ![](structure.png)
