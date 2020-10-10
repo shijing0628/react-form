@@ -35,6 +35,12 @@
       "content": "I am working now.",
       "date": "2020-10-10T01:34:04.659Z",
       "important": false
+    },
+    {
+      "id": 7,
+      "content": "werewrw",
+      "date": "2020-10-10T02:25:21.260Z",
+      "important": true
     }
   ]
 }

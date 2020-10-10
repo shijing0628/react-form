@@ -63,7 +63,7 @@ function App() {
       </ul>
       <br />
       <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange} />
+        <input value={newNote} onChange={handleNoteChange} placeholder='write a new note...' />
         <button className="btn" type="submit">Save</button>
       </form>
     </div>
