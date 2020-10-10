@@ -13,14 +13,20 @@ function App() {
 
   // update each item important or not ,also update into database
   const toggleImportanceOf = id => {
-    const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id);
     const changeNote = { ...note, important: !note.important };
 
     noteService.update(id, changeNote).then(res => {
       setNotes(notes.map(note => note.id !== id ? note : res.data))
+    }).catch(err => {
+      alert(
+        `the note '${note.content}' was already deleted from server`
+      )
+      setNotes(notes.filter(n => n.id !== id));
     })
   }
+
+
   const addNote = (e) => {
     e.preventDefault();
     const newObj = {
@@ -33,6 +39,8 @@ function App() {
     noteService.create(newObj).then(res => {
       setNotes(notes.concat(res));
       setNewNote('');
+    }).catch(err => {
+      alert(`failed to create note: ${err}`)
     })
   }
 
@@ -48,6 +56,8 @@ function App() {
     noteService.getAll().then(res => {
       console.log('promise fulfilled')
       setNotes(res.data)
+    }).catch(err => {
+      alert('fail');
     })
   }, [])
 
