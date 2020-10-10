@@ -11,18 +11,29 @@ function App() {
   const [newNote, setNewNote] = useState('write a new note...');
   const [showAll, setShowAll] = useState(true);
 
+  // update each item important or not ,also update into database
+  const toggleImportanceOf = id => {
+    const url = `http://localhost:3001/notes/${id}`
+    const note = notes.find(n => n.id === id);
+    const changeNote = { ...note, important: !note.important };
 
+    axios.put(url, changeNote).then(res => {
+      setNotes(notes.map(note => note.id !== id ? note : res.data))
+    })
+  }
   const addNote = (e) => {
     e.preventDefault();
     const newObj = {
+      id: notes.length + 1,
       content: newNote,
       date: new Date().toISOString(),
       important: Math.random() < 0.5,
-      id: notes.length + 1,
     }
-    setNotes(notes.concat(newObj));
-    setNewNote('');
 
+    axios.post('http://localhost:3001/notes', newObj).then(res => {
+      setNotes(notes.concat(res));
+      setNewNote('');
+    })
   }
 
   const handleNoteChange = (e) => {
@@ -47,7 +58,7 @@ function App() {
       </div>
       <ul>
         {noteToShow.map(note =>
-          <Note key={note.id} note={note} />
+          <Note key={note.id} note={note} toggleImportanceOf={() => { toggleImportanceOf(note.id) }} />
         )}
       </ul>
       <br />
