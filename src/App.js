@@ -51,10 +51,10 @@ function App() {
 
   return (
     <div className="content">
-      <h1>Notes</h1>
+      <h1>My Daily Notes</h1>
       <br></br>
       <div>
-        <button onClick={() => setShowAll(!showAll)}>Show {showAll ? 'important' : 'all'}</button>
+        <button className="btn" onClick={() => setShowAll(!showAll)}>Show {showAll ? 'important' : 'all'}</button>
       </div>
       <ul>
         {noteToShow.map(note =>
@@ -64,7 +64,7 @@ function App() {
       <br />
       <form onSubmit={addNote}>
         <input value={newNote} onChange={handleNoteChange} />
-        <button type="submit">Save</button>
+        <button className="btn" type="submit">Save</button>
       </form>
     </div>
   );

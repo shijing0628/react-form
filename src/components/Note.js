@@ -6,7 +6,7 @@ export const Note = ({ note, toggleImportanceOf }) => {
   <>
    <li>
     {note.content}
-    <button onClick={toggleImportanceOf}>{label}</button>
+    <button className="btn showall" onClick={toggleImportanceOf}>{label}</button>
    </li>
   </>
  )
