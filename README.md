@@ -15,3 +15,4 @@ need install CORS to connect server.
 post and get data from DB
 
 ![](structure.png)
+![](2020-10-11-16-43-14.png)
